@@ -1,9 +1,6 @@
 from dotenv import load_dotenv
 import psycopg2
 from psycopg2.extras import execute_values
-from parse import parse
-import json
-from datetime import datetime, timezone
 import os
 
 stations_sql = """
@@ -35,20 +32,3 @@ def save_snapshot(conn, stations_rows, status_rows):
         with conn.cursor() as cur:
             execute_values(cur, stations_sql, stations_rows)
             execute_values(cur, status_sql, status_rows)
-            
-if __name__ == '__main__':
-
-    with open("./raw_sample.json", encoding="utf-8") as f:
-        records = json.load(f)
-    stations, station_status = parse(records, datetime.now(timezone.utc))
-
-    conn = get_connection()
-    try:
-        save_snapshot(conn, stations, station_status)
-        with conn.cursor() as cur:
-           cur.execute("SELECT count(*) FROM stations") 
-           print(cur.fetchone())
-           cur.execute("SELECT count(*) FROM station_status") 
-           print(cur.fetchone())
-    finally:
-        conn.close()

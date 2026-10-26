@@ -1,5 +1,4 @@
-import json
-from datetime import datetime, timezone
+from datetime import datetime
 
 def convert_to_bool(s):
     return s == 'OUI' 
@@ -29,14 +28,3 @@ def parse(records, fetched_at):
             convert_to_bool(rec['is_returning'])
         ))
     return stations_rows, station_status_rows
-    
-if __name__ == '__main__':
-    with open("./raw_sample.json", encoding="utf-8") as f:
-        records = json.load(f)
-    stations, station_status = parse(records, datetime.now(timezone.utc))
-    print(len(stations), len(station_status))
-    print(stations[0])
-    print(station_status[0])
-    
-
-   
