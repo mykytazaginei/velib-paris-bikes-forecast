@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS stations(
     lon DOUBLE PRECISION,
     lat DOUBLE PRECISION,
     commune TEXT,
-    capacity INTEGER,
     code_insee TEXT,
+    capacity INTEGER,
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
