@@ -14,20 +14,19 @@ def count_rows(conn):
     return stations_len, status_len
 
 def run_once():
-    response = requests.get(URL, timeout=30)
-    response.raise_for_status()
-
-    records = response.json()
-    fetched_at = datetime.now(timezone.utc)
-    stations, station_status = parse(records, fetched_at)
-
     conn = get_connection()
     try:
+        response = requests.get(URL, timeout=30)
+        response.raise_for_status()
+    
+        records = response.json()
+        fetched_at = datetime.now(timezone.utc)
+        stations, station_status = parse(records, fetched_at)
+        
         stations_len_before, status_len_before = count_rows(conn)
         save_snapshot(conn, stations, station_status)
         stations_len_after, status_len_after = count_rows(conn)
-        print(f"stations: {stations_len_before} -> {stations_len_after}")
-        print(f"status: {status_len_before} -> {status_len_after}")
+        return stations_len_after - stations_len_before, status_len_after - status_len_before 
     finally:
         conn.close()
 

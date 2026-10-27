@@ -1,3 +1,5 @@
 .env
-*.json
+collector/raw_sample.json
 .venv/
+__pycache__
+*.pyc
