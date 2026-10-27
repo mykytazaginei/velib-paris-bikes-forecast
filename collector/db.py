@@ -23,9 +23,10 @@ ON CONFLICT (stationcode, duedate) DO NOTHING;
 
 load_dotenv()
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+host = os.getenv("POSTGRES_HOST", "localhost")
 
 def get_connection():
-    return psycopg2.connect(host='localhost', port=5432, dbname='velib', user='velib', password=POSTGRES_PASSWORD)
+    return psycopg2.connect(host=host, port=5432, dbname='velib', user='velib', password=POSTGRES_PASSWORD)
 
 def save_snapshot(conn, stations_rows, status_rows):
     with conn:

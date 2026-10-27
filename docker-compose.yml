@@ -12,6 +12,16 @@ services:
       POSTGRES_DB: velib
     ports:
       - 5432:5432
+  
+  collector:
+    build: . 
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
 volumes:
  pgdata:
    
