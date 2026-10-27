@@ -6,11 +6,12 @@ def convert_to_bool(s):
 def parse(records, fetched_at):
     stations_rows, station_status_rows = [], []
     for rec in records:
+        geo = rec.get('coordonnees_geo') or {}
         stations_rows.append((
             rec['stationcode'], 
             rec['name'], 
-            rec['coordonnees_geo']['lon'],
-            rec['coordonnees_geo']['lat'],
+            geo.get('lon'),
+            geo.get('lat'),
             rec.get('nom_arrondissement_communes'),
             rec.get('code_insee_commune'),
             rec.get('capacity')
