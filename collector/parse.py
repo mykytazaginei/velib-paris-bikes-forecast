@@ -10,9 +10,13 @@ def convert_to_bool(s):
 
 def parse(records, fetched_at):
     stations_rows, station_status_rows = [], []
+    skipped = 0
+    first_skipped = None
     for rec in records:
         if not (rec.get('stationcode') and rec.get('name') and rec.get('duedate')):
-            logger.warning("skipping record: %r", rec)
+            skipped +=1
+            if first_skipped is None:
+                first_skipped = rec
             continue
         geo = rec.get('coordonnees_geo') or {}
         stations_rows.append((
@@ -36,4 +40,5 @@ def parse(records, fetched_at):
             convert_to_bool(rec.get('is_renting')),
             convert_to_bool(rec.get('is_returning'))
         ))
+    logger.warning("skipped %d invalid records, first %r", skipped, first_skipped)
     return stations_rows, station_status_rows
