@@ -40,5 +40,6 @@ def parse(records, fetched_at):
             convert_to_bool(rec.get('is_renting')),
             convert_to_bool(rec.get('is_returning'))
         ))
-    logger.warning("skipped %d invalid records, first %r", skipped, first_skipped)
+    if skipped:
+        logger.warning("skipped %d invalid records, first %r", skipped, first_skipped)
     return stations_rows, station_status_rows
