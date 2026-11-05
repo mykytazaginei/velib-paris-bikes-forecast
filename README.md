@@ -6,18 +6,18 @@ Short-term forecast of bike availability at Vélib' stations in Paris. The proje
 
 | Stage | Status |
 |---|---|
-| Data collector (API → Postgres) | ✅ done |
-| Containerisation (Docker Compose) | ✅ done |
-| Deployment on an always-on server (Windows + Docker Desktop) | ✅ done |
-| Automatic weekly backups | ✅ done |
-| EDA and data cleaning | 🚧 in progress |
-| Feature engineering | ⏳ planned |
-| Baseline model | ⏳ planned |
-| LightGBM / Prophet, time-based split, rolling backtest | ⏳ planned |
-| Quality vs. history length analysis | ⏳ planned |
-| FastAPI service + Docker image | ⏳ planned |
-| Dashboard | ⏳ planned |
-| CI, experiment tracking (MLflow) | ⏳ planned |
+| Data collector (API → Postgres) |  done |
+| Containerisation (Docker Compose) |  done |
+| Deployment on an always-on server (Windows + Docker Desktop) |  done |
+| Automatic weekly backups |  done |
+| EDA and data cleaning |  in progress |
+| Feature engineering |  planned |
+| Baseline model |  planned |
+| LightGBM / Prophet, time-based split, rolling backtest |  planned |
+| Quality vs. history length analysis |  planned |
+| FastAPI service + Docker image |  planned |
+| Dashboard |  planned |
+| CI, experiment tracking (MLflow) |  planned |
 
 ## Architecture
 
@@ -129,10 +129,8 @@ Note: the database password is fixed when the data volume is first created. Chan
 
 ## Next steps
 
-- 🚧 Copy backups off the server (cloud-synced folder or external disk).
-- 🚧 EDA: stale and closed stations, coverage by hour, `fetched_at - duedate` delay, daily profile by weekday/weekend.
-- ⏳ Choose the time grid for features (hourly, given the update frequency).
-- ⏳ Features: hour/weekday in Europe/Paris, holidays, weather, neighbouring stations, lags.
-- ⏳ Baselines (last value, same hour last week), then LightGBM and Prophet with a time-based split and rolling backtest after 3-4 weeks of data.
-- ⏳ FastAPI service, Docker image, dashboard.
-- ⏳ Optional: a heartbeat table for the collector, a SIGTERM handler, remote access to the server over Tailscale (change the default password first).
+-  EDA: stale and closed stations, coverage by hour, `fetched_at - duedate` delay, daily profile by weekday/weekend.
+-  Choose the time grid for features (hourly, given the update frequency).
+-  Features: hour/weekday in Europe/Paris, holidays, weather, neighbouring stations, lags.
+-  Baselines (last value, same hour last week), then LightGBM and Prophet with a time-based split and rolling backtest after 3-4 weeks of data.
+-  FastAPI service, Docker image, dashboard.
